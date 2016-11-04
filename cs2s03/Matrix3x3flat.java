@@ -1,4 +1,21 @@
 package cs2s03;
+
+class WrongLength extends Throwable {
+	private static final long serialVersionUID = 1L;
+	private int len;
+	private String name;
+	
+	public WrongLength (int len, String name) {
+		this.len = len;
+		this.name = name;
+	}
+	
+	public String FormatError() {
+		return "Incorrect array size: " + this.len + " (expected 9) at " + this.name;
+	}
+	
+}
+
 public class Matrix3x3flat {
 	// Create record of 9 values
 	private class Record9 {
@@ -10,11 +27,15 @@ public class Matrix3x3flat {
 	private Record9 mat;
 
 	// Constructor
-	Matrix3x3flat(final long[] array) {
+	Matrix3x3flat(final long[] array) throws WrongLength {
 		mat = new Record9();
+		int len = array.length;
 		//TODO
 		// Check whether array has 9 elements - throw exception if not
 		// CODE GOES HERE
+		if (len != 9) {
+			throw new WrongLength(len, "Matrix Vector");
+		}
 
 		// Construct Matrix3x3flat using values of array interpreted row wise
 		mat.P0 = array[0]; mat.P1 = array[1]; mat.P2 = array[2];
@@ -31,7 +52,7 @@ public class Matrix3x3flat {
 
 	
 	// Create an identity matrix
-	Matrix3x3flat id() {
+	Matrix3x3flat id() throws WrongLength {
 		long[] identity = new long[] { 1, 0, 0, 1, 0, 0, 1, 0, 0 };
 		return new Matrix3x3flat(identity);
 	}
@@ -63,7 +84,7 @@ public class Matrix3x3flat {
 
 	
 	// Computes the ith power of a matrix
-	Matrix3x3flat matrixpower(int i) {
+	Matrix3x3flat matrixpower(int i) throws WrongLength {
 		if (i < 0) {
 			return this;// Throw exception
 			
