@@ -1,11 +1,11 @@
 package cs2s03;
 
-class WrongLengthnxn extends Throwable {
+class WrongLenN extends Throwable {
 	private int len;
 	private int dim;
 	private String name;
 	
-	public WrongLengthnxn (int len, int dim, String name) {
+	public WrongLenN (int len, int dim, String name) {
 		this.len = len;
 		this.name = name;
 		this.dim = dim;
@@ -18,7 +18,6 @@ class WrongLengthnxn extends Throwable {
 }
 
 public class MatrixArrayFlat {
-	// Create record of 9 values
 
 	private long[] mat;
 	
@@ -37,11 +36,11 @@ public class MatrixArrayFlat {
 	}
 
 	// Second Constructor - Takes an n x n array
-	MatrixArrayFlat(final long[] array, int n) throws WrongLengthnxn {
+	MatrixArrayFlat(final long[] array, int n) throws WrongLenN {
 		mat = new long[n*n];
 		int len = array.length;
 		
-		if(len != (n*n)) throw new WrongLengthnxn(len, n*n, "MatrixArrayFlat");
+		if(len != (n*n)) throw new WrongLenN(len, n*n, "MatrixArrayFlat");
 		
 		for(int i = 0; i < len; i++){
 			mat[i] = array[i];
@@ -56,7 +55,7 @@ public class MatrixArrayFlat {
 	}
 	
 	// Create an identity matrix
-	MatrixArrayFlat id(int n) throws WrongLengthnxn {
+	MatrixArrayFlat id(int n) throws WrongLenN {
 		int size = n * n;
 		long[] identity = new long[size];
 		int place = 0; 
@@ -80,34 +79,27 @@ public class MatrixArrayFlat {
 		return flat;
 	}
 	
-	// Compute the dot product of a row and column matrix
-	long dotProd(long[] Row, long[] Column) {
-		long A = 0;
-		for (int i = 0; i < Row.length; i++) {
-			A += Row[i] * Column[i]; 
-		}
-		return A;
-	}
-	
 	// Computes the ith power of a matrix
-	MatrixArrayFlat matrixpower(int i) throws WrongLength, WrongLengthnxn, WrongPower {
+	MatrixArrayFlat matrixpower(int i) throws WrongLength, WrongLenN, WrongPower {
 		if (i < 0) throw new WrongPower(i);
 		
 		else if (i == 0) return id((int) Math.sqrt(mat.length));
 		
 		else {
-			long[] org = copy(this).toArray();
-			long[] copy = copy(this).toArray();
+			long[] org = mat;
+			long[] copy = mat;
 			
 			int dim = (int) Math.sqrt(mat.length);
 			
 			long[] result = new long[dim * dim];
 			
+			//iterate over each column and row in array
 			for(int l = 1; l < i; l++) {
 				for(int row = 0; row < dim; row++) {
 					for(int col = 0; col < dim; col++) {
 						for(int j = 0; j < dim; j++) {
-							result[dim*row + col] += org[dim*row + j] * copy[j*dim + col];
+							result[dim*row + col] += 
+									org[dim*row + j] * copy[j*dim + col];
 						}
 					}
 				}

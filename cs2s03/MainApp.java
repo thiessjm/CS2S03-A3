@@ -23,14 +23,18 @@ public class MainApp {
 	}
 	
 	
-	public static void main(String[] args) throws WrongLength, WrongLengthnxn, WrongPower {
+	public static void main(String[] args) throws WrongLength, WrongLenN, WrongPower {
 		
 		long[] array1 = new long[]{1, 2, 3, 4, 5, 6, 7, 8, 9};
 		MatrixArrayFlat x = new MatrixArrayFlat(array1, 3);
 		
+		long[] array2 = new long[]{1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16};
+		MatrixArrayRC y = new MatrixArrayRC(array2, 4);
+		
 		System.out.println(x.matrixpower(1).toArray()[0]);
 		
-		printArraybyLine(x.matrixpower(1).toArray()); 
+		printArraybyLine(y.matrixpower(3).toArray()); 
+		
 	}
 
 }
