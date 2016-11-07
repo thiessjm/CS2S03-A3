@@ -65,9 +65,9 @@ public class Matrix3x3rc {
 	
 	Matrix3x3rc matrixpower(int i) throws WrongLength, WrongPower {
 		if (i < 0) throw new WrongPower(i);
-			
+		
 		else if (i == 0) return id();
-			
+		
 		else {
 			Matrix3x3rc org = copy(this);
 			// Define rows and columns of this matrix to apply dotProd

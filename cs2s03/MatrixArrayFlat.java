@@ -1,22 +1,5 @@
 package cs2s03;
 
-class WrongLenN extends Throwable {
-	private int len;
-	private int dim;
-	private String name;
-	
-	public WrongLenN (int len, int dim, String name) {
-		this.len = len;
-		this.name = name;
-		this.dim = dim;
-	}
-	
-	public String FormatError() {
-		return "Incorrect array size: " + this.len + 
-				" (expected " + dim + ") at " + this.name;
-	}
-}
-
 public class MatrixArrayFlat {
 
 	private long[] mat;
@@ -32,20 +15,18 @@ public class MatrixArrayFlat {
 		for(int i = 0; i < 9; i++){
 			mat[i] = array[i];
 		}
-		
 	}
 
 	// Second Constructor - Takes an n x n array
-	MatrixArrayFlat(final long[] array, int n) throws WrongLenN {
+	MatrixArrayFlat(final long[] array, int n) throws WrongLength {
 		mat = new long[n*n];
 		int len = array.length;
 		
-		if(len != (n*n)) throw new WrongLenN(len, n*n, "MatrixArrayFlat");
+		if(len != (n*n)) throw new WrongLength(len, "MatrixArrayFlat");
 		
 		for(int i = 0; i < len; i++){
 			mat[i] = array[i];
 		}
-
 	}
 
 	// Create a copy of a matrix
@@ -55,7 +36,7 @@ public class MatrixArrayFlat {
 	}
 	
 	// Create an identity matrix
-	MatrixArrayFlat id(int n) throws WrongLenN {
+	MatrixArrayFlat id(int n) throws WrongLength {
 		int size = n * n;
 		long[] identity = new long[size];
 		int place = 0; 
@@ -66,7 +47,6 @@ public class MatrixArrayFlat {
 				place += 1;
 			}
 		}
-		
 		return new MatrixArrayFlat(identity, n);
 	}
 	
@@ -80,7 +60,7 @@ public class MatrixArrayFlat {
 	}
 	
 	// Computes the ith power of a matrix
-	MatrixArrayFlat matrixpower(int i) throws WrongLength, WrongLenN, WrongPower {
+	MatrixArrayFlat matrixpower(int i) throws WrongLength, WrongPower {
 		if (i < 0) throw new WrongPower(i);
 		
 		else if (i == 0) return id((int) Math.sqrt(mat.length));
@@ -104,10 +84,9 @@ public class MatrixArrayFlat {
 					}
 				}
 				copy = result;
+				result = new long[dim*dim];
 			}
-			
 			return new MatrixArrayFlat(copy, dim);
 		}
-			
 	}
 }
