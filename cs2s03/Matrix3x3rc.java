@@ -11,9 +11,9 @@ public class Matrix3x3rc {
 		private class rowOfValues {
 			long V0, V1, V2;
 		}
-		rowOfValues R0 = new rowOfValues();
-		rowOfValues R1 = new rowOfValues();
-		rowOfValues R2 = new rowOfValues();
+		private rowOfValues R0 = new rowOfValues();
+		private rowOfValues R1 = new rowOfValues();
+		private rowOfValues R2 = new rowOfValues();
 	}
 	
 	//Create instance of Row3
@@ -26,7 +26,7 @@ public class Matrix3x3rc {
 		
 		if (len != 9) throw new WrongLength(len, "Matrix3x3rc" );
 
-		// Construct Matrix3x3flat using values of array interpreted row wise
+		// Construct Matrix3x3rc using values of array interpreted row wise
 		mat.R0.V0 = array[0]; mat.R0.V1 = array[1]; mat.R0.V2 = array[2];
 		mat.R1.V0 = array[3]; mat.R1.V1 = array[4]; mat.R1.V2 = array[5];
 		mat.R2.V0 = array[6]; mat.R2.V1 = array[7]; mat.R2.V2 = array[8];

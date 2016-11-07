@@ -14,29 +14,23 @@ public class MainApp {
 		return space;
 	}
 	
-	static void printArray(long[] array){
-		System.out.println(array[0] + space(intLen(array[0])) + 
-						   array[1] + space(intLen(array[1])) +
-						   array[2]);
-		
-		System.out.println(array[3] + space(intLen(array[3])) + 
-						   array[4] + space(intLen(array[4])) +
-						   array[5]);
-		
-		System.out.println(array[6] + space(intLen(array[6])) + 
-						   array[7] + space(intLen(array[7])) +
-						   array[8]);
+	static void printArraybyLine(long[] array) {
+		for (int i = 0; i < array.length; i++) {
+			if (i%Math.sqrt(array.length) == 0) System.out.println();
+			
+			System.out.printf("%d" + space(intLen(array[i])), array[i]);
+		}
 	}
 	
 	
-	public static void main(String[] args) throws WrongLength, WrongPower {
+	public static void main(String[] args) throws WrongLength, WrongLengthnxn, WrongPower {
 		
 		long[] array1 = new long[]{1, 2, 3, 4, 5, 6, 7, 8, 9};
-		Matrix3x3rc x = new Matrix3x3rc(array1);
+		MatrixArrayFlat x = new MatrixArrayFlat(array1, 3);
 		
-		printArray(x.matrixpower(4).toArray()); 
+		System.out.println(x.matrixpower(1).toArray()[0]);
 		
-		
+		printArraybyLine(x.matrixpower(1).toArray()); 
 	}
 
 }
