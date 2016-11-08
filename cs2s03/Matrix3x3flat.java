@@ -36,7 +36,7 @@ public class Matrix3x3flat {
 
 	private Record9 mat;
 
-	// Constructor
+	// Constructor - takes an array of length 9
 	Matrix3x3flat(final long[] array) throws WrongLength {
 		mat = new Record9();
 		int len = array.length;

@@ -4,9 +4,9 @@ import static org.junit.Assert.*;
 import org.junit.Test;
 
 public class Testing {
-	//Not everywhere 0, but M01 ^ 2 is everywhere 0
 	public static long[] ID = new long[]{1, 0, 0, 0, 1, 0, 0, 0, 1};
 	
+	//Assigning test matrices
 	public static long[] m01 = {5, 5, 0, -5, -5, 0, 0, 0, 0};
 	public static long[] m02 = {1, 2, 3, 4, 5, 6, 7, 8, 9};
 	public static long[] m03 = {-2, 11, 0, 3, 1, -5, 7, 8, 0};
@@ -21,8 +21,7 @@ public class Testing {
 	public static long[][] master = 
 			new long[][]{m01, m02, m03, m04, m05, m06, m07, m08, m09, m10};
 	
-	//Answers
-	//The weird formatting to satisfy 80 char width limit
+	//Answers to second and third powers of test matrices
 	public static long[] m01P2
 	= {0, 0, 0, 0, 0, 0, 0, 0, 0};
 	public static long[] m01P3 
@@ -92,60 +91,62 @@ public class Testing {
 	
 	@Test
 	//This class tests correctness of matrix power for 10 matrices
-	//over each matrix implementation class (6) for powers ranging
+	//over each matrix class (6) for powers ranging
 	//over -1 to 3
 	public void TestCorrect() throws WrongLength, WrongPower {
 		for (int i = -1; i < 4; i++) {
 			for (int j = 0; j < 10; j++) {
 				
-				Matrix3x3flat Cl1 = new Matrix3x3flat(master[j]);
-				Matrix3x3rc Cl2 = new Matrix3x3rc(master[j]);
-				Matrix3x3cr Cl3 = new Matrix3x3cr(master[j]);
-				MatrixArrayFlat Cl4 = new MatrixArrayFlat(master[j]);
-				MatrixArrayRC Cl5 = new MatrixArrayRC(master[j]);
-				MatrixArrayCR Cl6 = new MatrixArrayCR(master[j]);
+				Matrix3x3flat f = new Matrix3x3flat(master[j]);
+				Matrix3x3rc rc = new Matrix3x3rc(master[j]);
+				Matrix3x3cr cr = new Matrix3x3cr(master[j]);
+				MatrixArrayFlat F = new MatrixArrayFlat(master[j]);
+				MatrixArrayRC RC = new MatrixArrayRC(master[j]);
+				MatrixArrayCR CR = new MatrixArrayCR(master[j]);
 				
 				//Testing if WrongPower exception occurs. Fails if doesn't 
 				if(i == -1) {
 					try {
-						Cl1.matrixpower(i);
+						f.matrixpower(i);
 						fail("Did not throw WrongPower exception on input -1");
 					} catch (WrongPower e) {}
 					
 					try {
-						Cl2.matrixpower(i);
+						rc.matrixpower(i);
 						fail("Did not throw WrongPower exception on input -1");
 					} catch (WrongPower e) {}
 					
 					try {
-						Cl3.matrixpower(i);
+						cr.matrixpower(i);
 						fail("Did not throw WrongPower exception on input -1");
 					} catch (WrongPower e) {}
 					
 					try {
-						Cl4.matrixpower(i);
+						F.matrixpower(i);
 						fail("Did not throw WrongPower exception on input -1");
 					} catch (WrongPower e) {}
 					
 					try {
-						Cl5.matrixpower(i);
+						RC.matrixpower(i);
 						fail("Did not throw WrongPower exception on input -1");
 					} catch (WrongPower e) {}
 					
 					try {
-						Cl6.matrixpower(i);
+						CR.matrixpower(i);
 						fail("Did not throw WrongPower exception on input -1");
 					} catch (WrongPower e) {}
 				}
-				//If WrongPower exception occurs here, test should fail
+				//This section compares answers in Ans array with results from
+				// matrix power method
+				//(If WrongPower exception occurs here, this test should fail)
 				else {
 					try {
-					assertArrayEquals(Ans[i][j], Cl1.matrixpower(i).toArray());
-					assertArrayEquals(Ans[i][j], Cl2.matrixpower(i).toArray());
-					assertArrayEquals(Ans[i][j], Cl3.matrixpower(i).toArray());
-					assertArrayEquals(Ans[i][j], Cl4.matrixpower(i).toArray());
-					assertArrayEquals(Ans[i][j], Cl5.matrixpower(i).toArray());
-					assertArrayEquals(Ans[i][j], Cl6.matrixpower(i).toArray());
+					assertArrayEquals(Ans[i][j], f.matrixpower(i).toArray());
+					assertArrayEquals(Ans[i][j], rc.matrixpower(i).toArray());
+					assertArrayEquals(Ans[i][j], cr.matrixpower(i).toArray());
+					assertArrayEquals(Ans[i][j], F.matrixpower(i).toArray());
+					assertArrayEquals(Ans[i][j], RC.matrixpower(i).toArray());
+					assertArrayEquals(Ans[i][j], CR.matrixpower(i).toArray());
 					
 					} catch (WrongLength e) {
 						System.out.println(e.FormatError());
@@ -156,6 +157,7 @@ public class Testing {
 	}
 	
 	@Test
+	//Test that the matrix powers computed in each class are the same
 	public void TestEqual() throws WrongLength, WrongPower {
 		
 		//Already verified that -1 matrix power throws WrongPower exception
@@ -163,25 +165,29 @@ public class Testing {
 		for (int i = 0; i < 4; i++) {
 			for (int j = 0; j < 10; j++) {
 				
-				Matrix3x3flat Cl1 = new Matrix3x3flat(master[j]);
-				Matrix3x3rc Cl2 = new Matrix3x3rc(master[j]);
-				Matrix3x3cr Cl3 = new Matrix3x3cr(master[j]);
-				MatrixArrayFlat Cl4 = new MatrixArrayFlat(master[j]);
-				MatrixArrayRC Cl5 = new MatrixArrayRC(master[j]);
-				MatrixArrayCR Cl6 = new MatrixArrayCR(master[j]);
+				Matrix3x3flat f = new Matrix3x3flat(master[j]);
+				Matrix3x3rc rc = new Matrix3x3rc(master[j]);
+				Matrix3x3cr cr = new Matrix3x3cr(master[j]);
+				MatrixArrayFlat F = new MatrixArrayFlat(master[j]);
+				MatrixArrayRC RC = new MatrixArrayRC(master[j]);
+				MatrixArrayCR CR = new MatrixArrayCR(master[j]);
 				
-				long[] T1 = Cl1.matrixpower(i).toArray();
-				long[] T2 = Cl2.matrixpower(i).toArray();
-				long[] T3 = Cl3.matrixpower(i).toArray();
-				long[] T4 = Cl4.matrixpower(i).toArray();
-				long[] T5 = Cl5.matrixpower(i).toArray();
-				long[] T6 = Cl6.matrixpower(i).toArray();
 				
-				long[][] Powers = {T1, T2, T3, T4, T5, T6};
+				//Compute matrix power for current test matrix in each class
+				//Classes contains these matrix powers for iteration
+				long[] Cf = f.matrixpower(i).toArray();
+				long[] Crc = rc.matrixpower(i).toArray();
+				long[] Ccr = cr.matrixpower(i).toArray();
+				long[] CF = F.matrixpower(i).toArray();
+				long[] CRC = RC.matrixpower(i).toArray();
+				long[] CCR = CR.matrixpower(i).toArray();
 				
-				for (int k = 0; k < Powers.length; k++) {
-					for (int l = 0; l < Powers.length; l++) {
-						assertArrayEquals(Powers[k], Powers[l]);
+				long[][] Classes = {Cf, Crc, Ccr, CF, CRC, CCR};
+				
+				//Compare matrix power for each class
+				for (int k = 0; k < Classes.length; k++) {
+					for (int l = 0; l < Classes.length; l++) {
+						assertArrayEquals(Classes[k], Classes[l]);
 					}
 				}
 			}

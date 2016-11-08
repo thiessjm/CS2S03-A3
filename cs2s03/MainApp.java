@@ -1,9 +1,13 @@
 package cs2s03;
-
+import org.apache.commons.math3.fraction.Fraction;
 public class MainApp {
 	
 	static long intLen(long i) {
 		return String.valueOf(i).length();
+	}
+	
+	static long frLen(Fraction f) {
+		return f.toString().length();
 	}
 	
 	static String space(long i) {
@@ -22,6 +26,14 @@ public class MainApp {
 		}
 	}
 	
+	static void printArraybyLineFR(Fraction[] array) {
+		for (int i = 0; i < array.length; i++) {
+			if (i%Math.sqrt(array.length) == 0) System.out.println();
+			
+			System.out.printf(array[i] + space(frLen(array[i])));
+		}
+	}
+	
 	static void printArraySingle(long[] array) {
 		System.out.printf("{");
 		for (int i = 0; i < array.length; i++) {
@@ -32,27 +44,43 @@ public class MainApp {
 		System.out.println();
 	}
 	
+	static void printArrayFR(Fraction[] array) {
+		System.out.printf("{");
+		for (int i = 0; i < array.length; i++) {
+			if(i == array.length - 1) System.out.printf("%d", array[i]);
+			else System.out.printf(array[i] + "%s", " ");
+		}
+		System.out.printf("}");
+		System.out.println();
+	}
+	
 	
 	public static void main(String[] args) throws WrongLength, WrongPower {
-		long[] M01 = new long[]{5, 5, 0, -5, -5, 0, 0, 0, 0};
-		long[] M02 = new long[]{1, 2, 3, 4, 5, 6, 7, 8, 9};
-		long[] M03 = new long[]{-2, 11, 0, 3, 1, -5, 7, 8, 0};
-		long[] M04 = new long[]{10, 2, 2, 2, 1, 0, -2, -2, -2};
-		long[] M05 = new long[]{-1, -1, -1, 1, 1, 1, -1, -1, -1};
-		long[] M06 = new long[]{2, 4, 6, -1, -2, -3, 7, 8, 9};
-		long[] M07 = new long[]{0, 0, 0, 5, 5, -3, 7, 7, 0};
-		long[] M08 = new long[]{-6, 13, 9, 0, 15, -2, 4, 5, 0};
-		long[] M09 = new long[]{2, 4, 6, 8, 10, 12, 14, 16, 18};
-		long[] M10 = new long[]{23, 52, -10, 11, 0, 312, 2, 0, 0};
 		
-		long[] array2 = new long[9];
-		array2 = M02;
-		MatrixArrayRC y = new MatrixArrayRC(array2);
+		Fraction f1 = new Fraction(3, 1);
+		Fraction f2 = new Fraction(0, 1);
+		Fraction f3 = new Fraction(2, 1);
+		Fraction f4 = new Fraction(2, 1);
+		Fraction f5 = new Fraction(0, 1);
+		Fraction f6 = new Fraction(-2, 1);
+		Fraction f7 = new Fraction(0, 1);
+		Fraction f8 = new Fraction(1, 1);
+		Fraction f9 = new Fraction(1, 1);
+
 		
-		for (int i = 1; i < 4; i++){
-			printArraySingle(y.matrixpower(i).toArray()); 
-		}
-		System.out.println(y.toArray()[3]);
+		
+		Fraction[] fArray = new Fraction[]{f1, f2, f3, f4, 
+										   f5, f6, f7, f8, 
+										   f9};
+		
+		MatrixArrayFlatRat x = new MatrixArrayFlatRat(fArray, 3);
+		
+//		printArraybyLineFR(x.select(0, 0));
+		
+		
+		printArraybyLineFR(x.inverse().toArray());
+		
+		
 	}
 
 }

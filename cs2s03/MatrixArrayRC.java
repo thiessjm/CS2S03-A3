@@ -11,6 +11,13 @@ public class MatrixArrayRC {
 		
 		if (len != 9) throw new WrongLength(len, "MatrixArrayFlat");
 		
+		/* Array
+		 * A0 A1 A2
+		 * A3 A4 A5
+		 * A6 A7 A8
+		 * 
+		 * Where mat = [[A0, A1, A2],[A3, A4, A5], [A6, A7, A8]]
+		 * */
 		//Iterate over elements in array and assign to mat
 		for(int i = 0; i < 3; i++){
 			for(int j = 0; j < 3; j++) {

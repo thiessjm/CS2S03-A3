@@ -11,17 +11,17 @@ public class MatrixArrayCR {
 		
 		if (len != 9) throw new WrongLength(len, "MatrixArrayFlat");
 		
-		/* Array		Mat
-		 * A0 A1 A2		M0 M1 M2
-		 * A3 A4 A5		M3 M4 M5
-		 * A6 A7 A8		M6 M7 M8
+		/* Array
+		 * A0 A1 A2
+		 * A3 A4 A5
+		 * A6 A7 A8
 		 * 
-		 * Where mat = [[M0, M3, M6],[M1, M4, M7], [M2, M5, M8]]
+		 * Where mat = [[A0, A3, A6],[A1, A4, A7], [A2, A5, A8]]
 		 * */
 		//Iterate over elements in array and assign to mat
 		for(int i = 0; i < 3; i++){
 			for(int j = 0; j < 3; j++) {
-				mat[j][i] = array[i + j*3];
+				mat[i][j] = array[i + j*3];
 			}
 		}
 	}
@@ -35,7 +35,7 @@ public class MatrixArrayCR {
 		
 		for(int i = 0; i < mat.length; i++){
 			for(int j = 0; j < mat.length; j++){
-				mat[j][i] = array[i + j*mat.length];
+				mat[i][j] = array[i + j*mat.length];
 			}
 		}
 	}
@@ -67,7 +67,7 @@ public class MatrixArrayCR {
 		
 		for (int i = 0; i < mat.length; i++) {
 			for(int j = 0; j < mat.length; j++) {
-				flat[i*mat.length + j] = mat[i][j];
+				flat[i + j*mat.length] = mat[i][j];
 			}
 		}
 		return flat;
@@ -95,7 +95,7 @@ public class MatrixArrayCR {
 					for(int col = 0; col < dim; col++) {
 						for(int j = 0; j < dim; j++) {
 							result[dim*row + col] += 
-									org[row][j] * copy[j][col];
+									org[j][row] * copy[col][j];
 						}
 					}
 				}
